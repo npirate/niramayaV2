@@ -1,0 +1,10 @@
+﻿.bgg {
+    background: url(/images/herb2.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100%;
+    font-family: 'Numans', sans-serif;
+}
+.middle-section {
+    margin-top: 4rem !important;
+}

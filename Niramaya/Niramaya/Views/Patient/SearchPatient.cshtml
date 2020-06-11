@@ -1,0 +1,131 @@
+﻿
+@{
+    ViewData["Title"] = "Search Patient";
+    Layout = "~/Views/Shared/_AfterLogin.cshtml";
+}
+@model Niramaya.Models.PatientViewModel
+@*<h1 class="text-center">Login</h1>*@
+<div class="container-fliud">
+    <div class="row">
+        <div class="col mx-auto">
+            <div class="card card-signin my-5">
+                <div class="card-body">
+                    <h1 class="display-4 card-title text-center">Search Patient</h1>
+                    <form method="post" asp-controller="Patient" asp-action="SearchPatient" style="" class="align-self-center text-center container">
+                        @*<h4 class="text-center">Use Niramaya account to log in.</h4>*@
+                        <hr />
+                        <div class="container-fliud">
+                            <div class="row">
+                                <div class=" col form-group">
+                                    <label class="float-left">First Name</label>
+                                    <input asp-for="PtFname" class="form-control" placeholder="First Name" />
+
+                                </div>
+                                <div class="col form-group">
+                                    <label class="float-left">Middle Name</label>
+                                    <input asp-for="PtMname" class="form-control" placeholder="Middle Name" />
+                                </div>
+                                <div class="col form-group">
+                                    <label class="float-left">Last Name</label>
+                                    <input asp-for="PtLname" class="form-control" placeholder="Last Name" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col form-group">
+                                    <label class="float-left">Date of Birthday</label>
+                                    <div class="" id='datetimepicker1'>
+                                        @*<span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>*@
+                                        @Html.TextBoxFor(x => x.PtDOB, "{0:yyyy-MM-dd}", new { @class = "form-control", @type = "date" })
+                                        @*<input asp-for="PtDOB" data-date-format="dd/mm/yyyy" class="form-control" />*@
+                                    </div>
+                                </div>
+                                <div class="col form-group">
+                                    <label class="float-left">Mobile Number</label>
+                                    <input asp-for="PtMobile" class="form-control" placeholder="Mobile Number" />
+                                </div>
+                                <div class="col form-group">
+                                    <label class="float-left">Pincode</label>
+                                    <input asp-for="PtPincode" class="form-control" placeholder="Pincode" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-lg btn-primary text-uppercase justify-content-center align-self-center mt-3" asp-controller="Patient" asp-action="SearchPatient" type="submit">Search</button>
+                        </div>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">@Html.DisplayNameFor(model => model.Fname)</a>
+                                    </th>
+                                    <th>
+                                        <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]">@Html.DisplayNameFor(model => model.Lname)</a>
+                                    </th>
+                                    <th>
+                                        <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]">@Html.DisplayNameFor(model => model.Gender)</a>
+                                    </th>
+                                    <th>
+                                        <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]">@Html.DisplayNameFor(model => model.DOB)</a>
+                                    </th>
+                                    <th>
+                                        <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]">@Html.DisplayNameFor(model => model.Mobile)</a>
+                                    </th>
+                                    <th>
+                                        <a asp-action="Index">Visit</a>
+                                    </th>
+                                </tr>
+                            </thead>
+                            @if (PatientViewModel.hasData > 0)
+                            {
+                                <tbody>
+                                    @foreach (var item in TempData["modeldata"] as IEnumerable<PatientViewModel>)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Fname)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Lname)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Gender)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.DOB)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Mobile)
+                                            </td>
+                                            <td>
+                                                <a asp-action="Edit" asp-route-id="@item.PtMobile">Add Visit</a>
+                                                @*<a asp-action="Delete" asp-route-id="@item.PtMobile">Delete</a>*@
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            }
+                        </table>
+                        @if (PatientViewModel.pager.TotalPages > 1)
+                        {
+                            @await Html.PartialAsync("~/Views/PaginationView.cshtml");
+                            
+                            @Html.TextBoxFor(PatientViewModel => PatientViewModel.pager.PageIndex, new { @class = "form-group ml-2", @type = "text", @disabled="true",@style = "width: 50px" })
+                            @Html.Raw("<span class='ml-1'>of</span>")
+                            @Html.TextBoxFor(PatientViewModel => PatientViewModel.pager.TotalPages, new { @class = "form-group ml-2", @type = "text", @disabled="true",@style = "width: 50px" })
+                        }
+                        <br />
+                        <span id="errorspan" class="text-danger">@ViewBag.ErrorRegister</span>
+                        <span id="sucessspan" class="text-success">@ViewBag.SuccessRegister</span>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+

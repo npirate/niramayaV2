@@ -1,0 +1,78 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@model Niramaya.Models.ProfileViewModel
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+            <div class="card card-signin my-5">
+                <div class="card-body">
+                    <h1 class="display-4 card-title text-center">Niramaya LLC</h1>
+                    <form method="post" asp-controller="Home" asp-action="SearchDoc" class="align-self-center text-center container-fluid">
+                        @*<h4 class="text-center">Use Niramaya account to log in.</h4>*@
+                        <hr />
+                        <div class="form-group d-flex">
+                            <input class="form-control d-inline" asp-for="doc_SearchText" placeholder="Search Doctors" />
+                            <button class="btn btn-primary text-uppercase d-inline ml-1" type="submit">Search</button>
+                        </div>
+                        <div class="form-group d-flex">
+
+                        </div>
+
+                        @if (ProfileViewModel.Totaldoccount > 0)
+                        {
+                            @foreach (var item in TempData["docdata"] as IEnumerable<ProfileViewModel>)
+                            {
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <div class="float-left">Dr. @Html.DisplayFor(modelItem => item.doc_Fname) @Html.DisplayFor(modelItem => item.doc_Lname)</div><br />
+                                                    <div class="float-left">@Html.DisplayFor(modelItem => item.doc_Degree)</div>
+                                                    @if (!string.IsNullOrEmpty(item.doc_PostDegree))
+                                                    {
+                                                        <div class="float-left">, @Html.DisplayFor(modelItem => item.doc_PostDegree)</div><br />
+                                                    }
+                                                    else
+                                                    {<br />}
+                                                    <div class="float-left">@Html.DisplayFor(modelItem => item.doc_Phone)</div><br />
+                                                </div>
+                                                <div class="col">
+                                                    <div class="float-right">@Html.DisplayFor(modelItem => item.doc_Clinicname)</div>
+                                                    <br /><br />
+                                                    <div class="float-right">
+                                                        <button class="btn btn-primary" asp-controller="Home" asp-action="Profile" asp-route-uname="@item.Queryuname">Book Appointment</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+
+                        @if (ProfileViewModel.pager.TotalPages > 1)
+                        {
+                            @await Html.PartialAsync("~/Views/PaginationView.cshtml");
+
+                            @Html.TextBoxFor(ProfileViewModel => ProfileViewModel.pager.PageIndex, new { @class = "form-group ml-2", @type = "text", @disabled = "true", @style = "width: 50px" })
+                            @Html.Raw("<span class='ml-1'>of</span>")
+                            @Html.TextBoxFor(ProfileViewModel => ProfileViewModel.pager.TotalPages, new { @class = "form-group ml-2", @type = "text", @disabled = "true", @style = "width: 50px" })
+                        }
+                        <div class="text-center">
+                            <span id="errorspan" class="text-danger">@ViewBag.ErrorRegister</span>
+                        </div>
+                    </form>
+                    <div class="mt-2">
+
+                    </div>
+                    <br />
+                    <div class="text-center">
+                        <span id="sucessspan" class="text-success">@ViewBag.SuccessRegister</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

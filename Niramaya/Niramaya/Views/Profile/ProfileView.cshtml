@@ -1,0 +1,224 @@
+﻿
+@{
+    ViewData["Title"] = "ProfileView";
+    Layout = "~/Views/Shared/_AfterLogin.cshtml";
+}
+@model Niramaya.Models.ProfileViewModel
+<script>
+    $(document).ready(function () {
+        if ($('#from2').val() && $('#to2').val())
+            $('#from2').parent().removeClass('d-none');
+        if ($('#from3').val() && $('#to3').val())
+            $('#from3').parent().removeClass('d-none');
+    });
+</script>
+<div class="d-flex">
+    <div class="mr-3">
+        <a class="">Niramaya</a>
+    </div>
+    @if (ViewBag.profileurl != null)
+    {
+        <div class="mr-auto">
+            <label>Global Profile Link:</label>
+            <a class="ml-1 stretched-link text-primary">@ViewBag.profileurl/Home/Profile?uname=@ViewBag.username </a>
+        </div>
+    }
+    <div class="p-2">
+        <div class="" style="width: 100%">
+            @if (!ViewBag.ispublished)
+            {
+                <button type="button" onclick="location.href='@Url.Action("doPublish", "Profile")'" class="btn btn-dark btn-lg btn-block nav-link text-white">Publish</button>
+            }
+            else
+            {
+                <button type="button" onclick="location.href='@Url.Action("doUnpublish", "Profile")'" class="btn btn-dark btn-lg btn-block nav-link text-white">Unpublish</button>
+            }
+        </div>
+    </div>
+</div>
+<form id="profileform" method="post" asp-controller="Profile" asp-action="saveprofile">
+    <div class="container-fluid">
+        <div class="text-center">
+            <span id="errorspan" class="text-danger text-center">@ViewBag.ErrorRegister</span>
+            <span id="sucessspan" class="text-success">@ViewBag.SuccessRegister</span>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card h-100">
+
+                    <div class="card-body">
+                        <h5 class="card-title">Dr. Details</h5>
+                        <div class="form-group">
+                            <label class="float-left">@Html.DisplayNameFor(model => model.doc_Fname)</label>
+                            <input asp-for="doc_Fname" class="form-control" />
+                            <span asp-validation-for="doc_Fname" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="float-left">@Html.DisplayNameFor(model => model.doc_Mname)</label>
+                            <input asp-for="doc_Mname" class="form-control" />
+                            <span asp-validation-for="doc_Mname" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="float-left">@Html.DisplayNameFor(model => model.doc_Lname)</label>
+                            <input asp-for="doc_Lname" class="form-control" />
+                            <span asp-validation-for="doc_Lname" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="float-left">@Html.DisplayNameFor(model => model.doc_Gender)</label>
+                            <select asp-for="doc_Gender" asp-items="Model.Genderlist" class="form-control">
+                                <option value="">Select Gender</option>
+                            </select>
+                            <span asp-validation-for="doc_Gender" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="float-left">@Html.DisplayNameFor(model => model.doc_DOB)</label>
+                            <div class="input-group date">
+                                @Html.EditorFor(x => x.doc_DOB, new { htmlAttributes = new { @class = "form-control", @placeholder = "dd/mm/yyyy" } })
+                                <span asp-validation-for="doc_DOB" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="float-left">@Html.DisplayNameFor(model => model.doc_Degree)</label>
+                            <input asp-for="doc_Degree" class="form-control" readonly="readonly" value="BAMS" />
+                            <span asp-validation-for="doc_Degree" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="float-left">@Html.DisplayNameFor(model => model.doc_PostDegree)</label>
+                            <input asp-for="doc_PostDegree" class="form-control" />
+                            <span asp-validation-for="doc_PostDegree" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="float-left">@Html.DisplayNameFor(model => model.doc_Phone)</label>
+                            <input asp-for="doc_Phone" class="form-control" />
+                            <span asp-validation-for="doc_Phone" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="float-left">@Html.DisplayNameFor(model => model.doc_Email)</label>
+                            <input asp-for="doc_Email" class="form-control" readonly />
+                            <span asp-validation-for="doc_Email" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card h-auto">
+
+                    <div class="card-body">
+                        <h5 class="card-title">Clinical Details</h5>
+                        <div class="form-group">
+                            <label class="float-left">@Html.DisplayNameFor(model => model.doc_Clinicname)</label>
+                            <input asp-for="doc_Clinicname" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label class="float-left">@Html.DisplayNameFor(model => model.doc_Address1)</label>
+                            <input asp-for="doc_Address1" class="form-control" />
+                            <input asp-for="doc_Address2" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label class="float-left">@Html.DisplayNameFor(model => model.doc_City)</label>
+                            <input asp-for="doc_City" class="form-control" />
+                            <span asp-validation-for="doc_City" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="float-left">@Html.DisplayNameFor(model => model.doc_State)</label>
+                            <input asp-for="doc_State" class="form-control" />
+                            <span asp-validation-for="doc_State" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="float-left">@Html.DisplayNameFor(model => model.doc_Pincode)</label>
+                            <input asp-for="doc_Pincode" class="form-control" />
+                            <span asp-validation-for="doc_Pincode" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="float-left">@Html.DisplayNameFor(model => model.doc_ClinicsPhone)</label>
+                            <input asp-for="doc_ClinicsPhone" class="form-control" />
+                            <span asp-validation-for="doc_ClinicsPhone" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col">
+                        <h5 class="card-title">@Html.DisplayNameFor(model => model.doc_Services)</h5>
+                        <div class="form-group">
+                            <textarea asp-for="doc_Services" class="form-control" id="serviceTextArea" rows="5"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card h-auto">
+
+                    <div class="card-body">
+                        <h5 class="card-title">Appointment Booking</h5>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                @for (var i = 0; i < Model.Days.Length; i++)
+                                {
+                                    if (Model.DayChecked != null)
+                                    {
+                                        var j = Model.DayChecked.Count();
+                                        if (j > 0)
+                                        {
+                                            @for (j = 0; j < Model.DayChecked.Count(); j++)
+                                                {
+                                                    if (Model.DayChecked[j] == @i.ToString())
+                                                    {
+                                                        Model.isChecked = true;
+                                                        break;
+                                                    }
+                                                    else
+                                                    {
+                                                        Model.isChecked = false;
+                                                    }
+                                                }
+                                            }
+                                    }
+                                    <input name="DayChecked" type="checkbox" asp-for="isChecked" value="@i" />
+                                    @Model.Days[@i]
+                                    <br />
+                                }
+                                <span id="dayerrorcheck" class="text-danger" style="display:none;">Please select at least one checkbox.</span>
+                                <br />
+                            </li>
+                            <li class="list-group-item">
+                                <div class="form-group float-left">
+                                    <label class="">@Html.DisplayNameFor(model => model.doc_Duration) (in minutes)</label>
+                                    <br />
+                                    <input asp-for="doc_Duration" class="form-control" readonly="readonly" value="30" style="width:25%" />
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <label class="">Clinic Timings</label>
+                                <div class="form-group float-left">
+                                    <input asp-for="from1" class="time ui-timepicker-input" style="width:25%" autocomplete="on">
+                                    <input asp-for="to1" class="time ui-timepicker-input" style="width:25%" autocomplete="on">
+                                    <i class="fa fa-plus-circle" aria-hidden="true" style="font-size: 25px;" id="add1" name="add"></i>
+                                </div>
+                                <div class="form-group float-left d-none">
+                                    <input asp-for="from2" class="time ui-timepicker-input" style="width:25%" autocomplete="on">
+                                    <input asp-for="to2" class="time ui-timepicker-input" style="width:25%" autocomplete="on">
+                                    <i class="fa fa-plus-circle" aria-hidden="true" style="font-size: 25px;" id="add2" name="add"></i>
+                                    <i class="fa fa-minus-circle" aria-hidden="true" style="font-size: 25px;" id="minus2" name="minus"></i>
+                                </div>
+                                <div class="form-group float-left d-none">
+                                    <input asp-for="from3" class="time ui-timepicker-input" style="width:25%" autocomplete="on">
+                                    <input asp-for="to3" class="time ui-timepicker-input" style="width:25%" autocomplete="on">
+                                    <i class="fa fa-plus-circle" aria-hidden="true" style="font-size: 25px;" id="add3" name="add"></i>
+                                    <i class="fa fa-minus-circle" aria-hidden="true" style="font-size: 25px;" id="minus3" name="minus"></i>
+                                </div>
+                                <br />
+                            </li>
+                            <li class="list-group-item">
+                                <span id="timeerrorcheck" class="text-danger" style="display:none;">Please select correct timings.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center">
+            <button class="btn btn-lg btn-primary text-uppercase" asp-controller="Profile" asp-action="saveprofile">Save Profile</button>
+        </div>
+    </div>
+</form>

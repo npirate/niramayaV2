@@ -1,0 +1,11 @@
+Pending Tasks
+
+- Async Await all methods
+
+- Profile page, replace google icon with font awesome, add mime type in configure startup.cs , application/font-woff2 , woff , ttf
+
+- add image upload for profile
+
+- custom Error page
+
+- Readonly page of profileview ?username

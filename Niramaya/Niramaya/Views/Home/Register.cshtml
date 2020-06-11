@@ -1,0 +1,52 @@
+﻿
+@{
+    ViewData["Title"] = "Register";
+}
+
+@model LoginViewModel
+
+<div class="container backgr">
+    <div class="row">
+        <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+            <div class="card card-signin my-5">
+                <div class="card-body">
+                    <h1 class="display-4 card-title text-center">Niramaya LLC</h1>
+                    <form method="post" asp-controller="Home" asp-action="RegisterUser" style="width:350px;" class="align-self-center text-center container">
+                        <h4 class="text-center">Create account</h4>
+                        <hr />
+                        <div class="form-group">
+                            <label class="float-left">Username</label>
+                            <input asp-for="Username" class="form-control" placeholder="Username" />
+                            <span asp-validation-for="Username" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="float-left">Password</label>
+                            <input asp-for="Password" class="form-control" placeholder="Password" />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="float-left">Confirm Password</label>
+                            <input asp-for="confPassword" class="form-control" placeholder="Confirm Password" />
+                            <span asp-validation-for="confPassword" class="text-danger"></span>
+                        </div>
+                        <span class="text-danger">@ViewBag.ErrorRegister</span>
+                        @if (!LoginViewModel.disableRegisterFlow)
+                        {
+                            <div class="form-group text-center">
+                                <button class="btn btn-lg btn-dark btn-block text-uppercase d-flex justify-content-center mt-3" type="submit" asp-action="RegisterUser">REGISTER</button>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="form-group text-center">
+                                <button class="btn btn-lg btn-dark btn-block text-uppercase d-flex justify-content-center mt-3" type="submit" asp-action="UpdateUserPassword">UPDATE PASSWORD</button>
+                            </div>
+                        }
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

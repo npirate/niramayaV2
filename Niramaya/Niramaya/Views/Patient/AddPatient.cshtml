@@ -1,0 +1,89 @@
+﻿@{
+    ViewData["Title"] = "Add Patient";
+    Layout = "~/Views/Shared/_AfterLogin.cshtml";
+}
+@model Niramaya.Models.PatientViewModel
+@*<h1 class="text-center">Login</h1>*@
+<div class="container backgr">
+    <div class="row">
+        <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+            <div class="card card-signin my-5">
+                <div class="card-body">
+                    <h1 class="display-4 card-title text-center">Add Patient</h1>
+                    <form method="post" asp-controller="Patient" asp-action="AddPatient" style="width:350px;" class="align-self-center text-center container">
+                        @*<h4 class="text-center">Use Niramaya account to log in.</h4>*@
+                        <hr />
+                        <div class="form-group">
+                            <label class="float-left">First Name</label>
+                            <input asp-for="Fname" class="form-control" />
+                            <span asp-validation-for="Fname" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="float-left">Middle Name</label>
+                            <input asp-for="Mname" class="form-control" />
+                            <span asp-validation-for="Mname" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="float-left">Last Name</label>
+                            <input asp-for="Lname" class="form-control" />
+                            <span asp-validation-for="Lname" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="float-left">Gender</label>
+                            <br />
+                            <div class="float-left">
+                                Male
+                                @Html.RadioButtonFor(model => model.Gender, "Male")
+                                Female
+                                @Html.RadioButtonFor(model => model.Gender, "Female")
+                                Other
+                                @Html.RadioButtonFor(model => model.Gender, "Other")
+                            </div>
+                            <br />
+                            <span asp-validation-for="Gender" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="float-left">@Html.DisplayNameFor(model => model.DOB)</label>
+                            <div class="input-group date">
+                                @Html.EditorFor(x => x.DOB, new { htmlAttributes = new { @class = "form-control", @placeholder = "dd/mm/yyyy" } })
+                                <span asp-validation-for="DOB" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="float-left">Mobile Number</label>
+                            <input asp-for="Mobile" class="form-control" />
+                            <span asp-validation-for="Mobile" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="float-left">Email</label>
+                            <input asp-for="PatientEmail" class="form-control" />
+                            <span asp-validation-for="PatientEmail" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="float-left">Address</label>
+                            <input asp-for="Address1" class="form-control" placeholder="Address1" />
+                            <input asp-for="Pincode" class="form-control" placeholder="Pincode" />
+                            <input asp-for="City" class="form-control" placeholder="City" />
+                            <input asp-for="State" class="form-control" placeholder="State" />
+                            <span asp-validation-for="Pincode" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="float-left">Occupation</label>
+                            <input asp-for="Occupation" class="form-control" />
+                            <span asp-validation-for="Occupation" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-lg btn-primary btn-block text-uppercase d-flex justify-content-center mt-3" asp-controller="Patient" asp-action="AddPatient" type="submit">Save</button>
+                        </div>
+                        <span id="errorspan" class="text-danger">@ViewBag.ErrorRegister</span>
+                        <span id="sucessspan" class="text-success">@ViewBag.SuccessRegister</span>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

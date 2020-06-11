@@ -1,0 +1,51 @@
+﻿
+@{
+    ViewData["Title"] = "PreRegister";
+}
+@model LoginViewModel
+
+<div class="container backgr">
+    <div class="row">
+        <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+            <div class="card card-signin my-5">
+                <div class="card-body">
+                    <h1 class="display-4 card-title text-center">Niramaya LLC</h1>
+                    <form method="post" asp-controller="Home" asp-action="ValidateRegister" style="width:350px;" class="align-self-center text-center container">
+                        @if (!LoginViewModel.disableRegisterFlow)
+                        {
+                            <h4 class="text-center">Create account</h4>
+                            <hr />
+                            <label class="text-center">Register your account</label>
+                        }
+                        else
+                        {
+                            <h4 class="text-center">Forgot Password?</h4>
+                            <hr />
+                            <label class="text-center">You can reset your password here.</label>
+                        }
+                        <div id="email" class="form-group">
+                            <input asp-for="Email" class="form-control" placeholder="Enter your Email ID" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <span id="errorspan" class="text-danger">@ViewBag.ErrorRegister</span>
+                        <div id="nextdiv" class="form-group text-center">
+                            <button id="btnnext" class="btn btn-lg btn-dark btn-block text-uppercase d-flex justify-content-center mt-3" type="submit">NEXT</button>
+                        </div>
+                        @if (!String.IsNullOrEmpty(ViewBag.Email))
+                        {
+                            <script type="text/javascript">
+                                document.getElementById('email').classList.add('collapse');
+                                document.getElementById('errorspan').classList.add('collapse');
+                                document.getElementById('nextdiv').classList.add('collapse');
+                            </script>
+
+                            @await Html.PartialAsync("Partial_OTPView");
+                        }
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
